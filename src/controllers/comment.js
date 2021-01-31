@@ -2,7 +2,6 @@ const { page } = require("../assets/components/page");
 const { comment } = require("../assets/components/comment");
 
 module.exports.getAll = (req, res) => {
-  console.log(" Error happend here!");
   const { db } = global;
   const { cookies } = req;
 
