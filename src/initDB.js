@@ -38,12 +38,12 @@ const comments = `
 db.run(users, [], (err) => {
   if (err) {
     console.log({ err });
-  }
-});
-
-db.run(insertUsers, [], (err) => {
-  if (err) {
-    console.log({ err });
+  } else {
+    db.run(insertUsers, [], (err) => {
+      if (err) {
+        console.log({ err });
+      }
+    });
   }
 });
 
