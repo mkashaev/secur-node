@@ -57,7 +57,7 @@ Guys, a found cheaper and better, good luck
 
 /* 2
 <form action="/checkout" method="post">
-  <input name="city" value="423" />
+  <input hidden name="city" value="423" />
   <input hidden name="street" value="Universitetskaya" />
   <input hidden name="building" value="1" />
   <input hidden name="appartment" value="1" />
