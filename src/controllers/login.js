@@ -72,16 +72,9 @@ module.exports.getPage = async (req, res) => {
           <form method="POST">
             <h1 class="h3 mb-3 fw-normal">Please log in</h1>
             <label for="inputLogin" class="visually-hidden">Login</label>
-            <input type="text" id="inputLogin" class="form-control" name="login" placeholder="Login" required autofocus>
-            <label for="inputPassword" class="visually-hidden">Password</label>
+            <input type="text" id="inputLogin" class="form-control mb-2" name="login" placeholder="Login" required autofocus>
+            <label for="inputPassword" class="visually-hidden mb-1">Password</label>
             <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required>
-            <div class="checkbox mb-3">
-              <label>
-                <input type="checkbox" value="remember-me"> Remember me
-              </label>
-            </div>
-            <label>Hello</label>
-            <label>World</label>
             <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
             <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
           </form>
@@ -96,29 +89,17 @@ module.exports.login = async (req, res) => {
     body: { login, password },
   } = req;
 
-  // const query = `
-  //   INSERT INTO users (login, password)
-  //   VALUES ('${login}', '${password}')
-  // `;
-
   const sqlQuery = `
     SELECT * FROM users
     WHERE login='${login}' AND password='${password}'
   `;
 
   global.db.all(sqlQuery, [], (err, row) => {
-    if (err) {
-      console.log({ err });
-      res.status(501).json({
-        message: "Error!",
-      });
+    if (err || row.length === 0) {
+      res.status(501).redirect("/login");
+    } else {
+      res.cookie("token", row[0].token);
+      res.status(200).redirect("/comments");
     }
-
-    console.log({ row });
-
-    res.status(201).json({
-      message: "Success!",
-      data: row,
-    });
   });
 };

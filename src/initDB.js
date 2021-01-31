@@ -12,23 +12,26 @@ const users = `
   CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     login TEXT NOT NULL,
-    password TEXT NOT NULL
+    password TEXT NOT NULL,
+    token TEXT,
+    money NUMBER
   )
 `;
 
-const categories = `
-  CREATE TABLE IF NOT EXISTS categories (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    description TEXT
-  )
+const insertUsers = `
+  INSERT INTO users (login, password, token, money)
+  VALUES 
+    ('ivan', '123', 'ivan_abcd', '100'),
+    ('alex', '321', 'alex_abcd', '100000')
+
 `;
 
-const posts = `
-  CREATE TABLE IF NOT EXISTS posts (
+const comments = `
+  CREATE TABLE IF NOT EXISTS comments (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     author TEXT NOT NULL,
-    description TEXT
+    desc TEXT,
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
   )
 `;
 
@@ -37,13 +40,14 @@ db.run(users, [], (err) => {
     console.log({ err });
   }
 });
-db.run(categories, [], (err) => {
+
+db.run(insertUsers, [], (err) => {
   if (err) {
     console.log({ err });
   }
 });
 
-db.run(posts, [], (err) => {
+db.run(comments, [], (err) => {
   if (err) {
     console.log({ err });
   }

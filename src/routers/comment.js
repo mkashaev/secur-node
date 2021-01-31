@@ -1,6 +1,5 @@
 const express = require("express");
-const controller = require("../controllers/category");
-const { route } = require("./user");
+const controller = require("../controllers/comment");
 const router = express.Router();
 
 router.get("/", controller.getAll);

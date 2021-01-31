@@ -118,8 +118,6 @@ module.exports.create = async (req, res) => {
     VALUES ('${login}', '${password}')
   `;
 
-  console.log(query);
-
   global.db.run(query, [], (err) => {
     if (err) {
       console.log({ err });
